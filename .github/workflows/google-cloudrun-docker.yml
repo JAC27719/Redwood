@@ -79,8 +79,10 @@ jobs:
           # DOCKER_TAG="$${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
           # docker build --tag "${DOCKER_TAG} ."
           # docker push "${DOCKER_TAG}"
+          echo 'Running Docker Compose Build'
           docker compose -f ./docker-compose.dev.yml build
-          docker compose push
+          echo 'Running Docker Compose Push'
+          docker compose -f ./docker-compose.dev.yml push
       - name: 'Deploy to Cloud Run'
 
         # END - Docker auth and build
