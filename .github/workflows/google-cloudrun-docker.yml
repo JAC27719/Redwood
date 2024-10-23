@@ -36,11 +36,11 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: 'mathforge-438519' # TODO: update to your Google Cloud project ID
-  REGION: 'us-central1' # TODO: update to your region
-  SERVICE: 'redwood' # TODO: update to your service name
+  PROJECT_ID: '${{ vars.PROJECT_ID }}' # TODO: update to your Google Cloud project ID
+  REGION: '${{ vars.REGION }}' # TODO: update to your region
+  SERVICE: '${{ vars.SERVICE }}' # TODO: update to your service name
   WORKLOAD_IDENTITY_PROVIDER: 'projects/426020917641/locations/global/workloadIdentityPools/redwood-github-pool/providers/redwood-github-provider' # TODO: update to your workload identity provider
-  REPO_LOCATION: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}'
+  REPO_LOCATION: '${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.SERVICE }}'
   IMAGE_TAG: '${{ github.sha }}'
 jobs:
   deploy:
