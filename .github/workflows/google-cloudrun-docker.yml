@@ -33,12 +33,13 @@ on:
   push:
     branches:
       - '"main"'
+  workflow_dispatch:
 
 env:
-  PROJECT_ID: 'my-project' # TODO: update to your Google Cloud project ID
+  PROJECT_ID: 'mathforge-438519' # TODO: update to your Google Cloud project ID
   REGION: 'us-central1' # TODO: update to your region
-  SERVICE: 'my-service' # TODO: update to your service name
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider' # TODO: update to your workload identity provider
+  SERVICE: 'redwood' # TODO: update to your service name
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/426020917641/locations/global/workloadIdentityPools/redwood-github-pool/providers/redwood-github-provider' # TODO: update to your workload identity provider
 
 jobs:
   deploy:
@@ -75,8 +76,9 @@ jobs:
       - name: 'Build and Push Container'
         run: |-
           DOCKER_TAG="$${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
-          docker build --tag "${DOCKER_TAG}" .
-          docker push "${DOCKER_TAG}"
+          docker compose
+          # docker build --tag "${DOCKER_TAG}" .
+          # docker push "${DOCKER_TAG}"
       - name: 'Deploy to Cloud Run'
 
         # END - Docker auth and build
